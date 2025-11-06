@@ -49,6 +49,4 @@ public class Eser extends BaseEntity {
     @Indexed
     private Long goruntulenmeSayisi;
 
-    private List<EserYorum> yorumlar;
-
 }
