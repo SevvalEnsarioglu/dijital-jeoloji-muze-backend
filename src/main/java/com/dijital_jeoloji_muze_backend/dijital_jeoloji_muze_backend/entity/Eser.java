@@ -7,6 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.data.mongodb.core.index.Indexed;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -14,7 +15,6 @@ import java.time.LocalDate;
 @EqualsAndHashCode(callSuper = true)
 @Document(collection = "eser")
 public class Eser extends BaseEntity {
-
     @Field(name = "isim")
     private String isim;
 
@@ -49,5 +49,6 @@ public class Eser extends BaseEntity {
     @Indexed
     private Long goruntulenmeSayisi;
 
+    private List<EserYorum> yorumlar;
 
 }
