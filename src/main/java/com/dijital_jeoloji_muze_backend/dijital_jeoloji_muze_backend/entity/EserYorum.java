@@ -17,6 +17,9 @@ public class EserYorum extends BaseEntity {
     @Field(name="ad_soyad")
     private String AdSoyad;
 
+    @Field(name="email")
+    private String Email;
+
     @Field(name="yorum")
     private String Yorum;
 
