@@ -1,6 +1,6 @@
 package com.dijital_jeoloji_muze_backend.dijital_jeoloji_muze_backend.service.impl;
 
-import com.dijital_jeoloji_muze_backend.dijital_jeoloji_muze_backend.mapper.DtoMapper;
+import com.dijital_jeoloji_muze_backend.dijital_jeoloji_muze_backend.mapper.HakkimizdaMapper;
 import com.dijital_jeoloji_muze_backend.dijital_jeoloji_muze_backend.model.dto.request.HakkimizdaRequestDTO;
 import com.dijital_jeoloji_muze_backend.dijital_jeoloji_muze_backend.model.dto.response.HakkimizdaResponseDTO;
 import com.dijital_jeoloji_muze_backend.dijital_jeoloji_muze_backend.model.entity.Hakkimizda;
@@ -17,11 +17,11 @@ public class HakkimizdaServiceImpl implements HakkimizdaService {
 
     private static final String SINGLETON_ID = "HAKKIMIZDA_SINGLETON_ID";
     private final HakkimizdaRepository hakkimizdaRepository;
-    private final DtoMapper dtoMapper;
+    private final HakkimizdaMapper hakkimizdaMapper;
 
-    public HakkimizdaServiceImpl(HakkimizdaRepository hakkimizdaRepository, DtoMapper dtoMapper) {
+    public HakkimizdaServiceImpl(HakkimizdaRepository hakkimizdaRepository, HakkimizdaMapper hakkimizdaMapper) {
         this.hakkimizdaRepository = hakkimizdaRepository;
-        this.dtoMapper = dtoMapper;
+        this.hakkimizdaMapper = hakkimizdaMapper;
     }
 
     @Override
@@ -31,10 +31,10 @@ public class HakkimizdaServiceImpl implements HakkimizdaService {
             throw new IllegalStateException("Hakkimizda zaten mevcut. Güncellemek için update metodunu kullanınız.");
         }
 
-        Hakkimizda entity = dtoMapper.toHakkimizdaEntity(request);
+        Hakkimizda entity = hakkimizdaMapper.toHakkimizdaEntity(request);
         entity.setId(SINGLETON_ID);
         Hakkimizda saved = hakkimizdaRepository.save(entity);
-        return dtoMapper.toHakkimizdaResponseDTO(saved);
+        return hakkimizdaMapper.toHakkimizdaResponseDTO(saved);
     }
 
     @Override
@@ -46,7 +46,7 @@ public class HakkimizdaServiceImpl implements HakkimizdaService {
             throw new IllegalStateException("Hakkimizda verisi bulunamadı");
         }
 
-        return dtoMapper.toHakkimizdaResponseDTO(hakkimizda.get());
+        return hakkimizdaMapper.toHakkimizdaResponseDTO(hakkimizda.get());
     }
 
     @Override
@@ -61,7 +61,7 @@ public class HakkimizdaServiceImpl implements HakkimizdaService {
         existing.setTelefon(request.telefon());
         existing.setEmail(request.email());
         Hakkimizda updated = hakkimizdaRepository.save(existing);
-        return dtoMapper.toHakkimizdaResponseDTO(updated);
+        return hakkimizdaMapper.toHakkimizdaResponseDTO(updated);
     }
 
     @Override
@@ -86,7 +86,7 @@ public class HakkimizdaServiceImpl implements HakkimizdaService {
         });
 
         Hakkimizda updated = hakkimizdaRepository.save(existing);
-        return dtoMapper.toHakkimizdaResponseDTO(updated);
+        return hakkimizdaMapper.toHakkimizdaResponseDTO(updated);
     }
 
     @Override
