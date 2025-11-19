@@ -1,4 +1,4 @@
-package com.dijital_jeoloji_muze_backend.dijital_jeoloji_muze_backend.entity;
+package com.dijital_jeoloji_muze_backend.dijital_jeoloji_muze_backend.model.entity;
 
 import lombok.*;
 import org.springframework.data.annotation.Id;

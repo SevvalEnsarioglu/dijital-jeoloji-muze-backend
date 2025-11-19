@@ -1,5 +1,6 @@
-package com.dijital_jeoloji_muze_backend.dijital_jeoloji_muze_backend.entity;
+package com.dijital_jeoloji_muze_backend.dijital_jeoloji_muze_backend.model.entity;
 
+import com.dijital_jeoloji_muze_backend.dijital_jeoloji_muze_backend.model.entity.BaseEntity;
 import lombok.*;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
