@@ -14,7 +14,6 @@ import java.time.Instant;
 @AllArgsConstructor
 public abstract class BaseEntity {
     @Id
-    @Setter(AccessLevel.NONE)
     private String id;
 
     @CreatedDate
