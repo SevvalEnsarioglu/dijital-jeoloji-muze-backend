@@ -6,7 +6,7 @@ import java.time.Instant;
 
 public record HakkimizdaResponseDTO(
         @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-        Long id,
+        String id,
         String hakkinda,
         String adres,
         String telefon,
