@@ -3,6 +3,7 @@ package com.dijital_jeoloji_muze_backend.dijital_jeoloji_muze_backend.controller
 import com.dijital_jeoloji_muze_backend.dijital_jeoloji_muze_backend.model.dto.request.HakkimizdaRequestDTO;
 import com.dijital_jeoloji_muze_backend.dijital_jeoloji_muze_backend.model.dto.response.HakkimizdaResponseDTO;
 import com.dijital_jeoloji_muze_backend.dijital_jeoloji_muze_backend.service.HakkimizdaService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,12 +13,10 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/hakkimizda")
+@RequiredArgsConstructor
 public class HakkimizdaController {
 
     private final HakkimizdaService hakkimizdaService;
-    public HakkimizdaController(HakkimizdaService hakkimizdaService) {
-        this.hakkimizdaService = hakkimizdaService;
-    }
     @PostMapping
     public ResponseEntity<HakkimizdaResponseDTO> createHakkimizda(@Valid @RequestBody HakkimizdaRequestDTO request) {
         HakkimizdaResponseDTO created = hakkimizdaService.createHakkimizda(request);

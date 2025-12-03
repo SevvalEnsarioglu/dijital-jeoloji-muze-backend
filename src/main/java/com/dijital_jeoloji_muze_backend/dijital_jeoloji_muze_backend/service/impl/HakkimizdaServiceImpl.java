@@ -6,6 +6,7 @@ import com.dijital_jeoloji_muze_backend.dijital_jeoloji_muze_backend.model.dto.r
 import com.dijital_jeoloji_muze_backend.dijital_jeoloji_muze_backend.model.entity.Hakkimizda;
 import com.dijital_jeoloji_muze_backend.dijital_jeoloji_muze_backend.repository.HakkimizdaRepository;
 import com.dijital_jeoloji_muze_backend.dijital_jeoloji_muze_backend.service.HakkimizdaService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,16 +14,12 @@ import java.util.Map;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class HakkimizdaServiceImpl implements HakkimizdaService {
 
     private static final String SINGLETON_ID = "HAKKIMIZDA_SINGLETON_ID";
     private final HakkimizdaRepository hakkimizdaRepository;
     private final HakkimizdaMapper hakkimizdaMapper;
-
-    public HakkimizdaServiceImpl(HakkimizdaRepository hakkimizdaRepository, HakkimizdaMapper hakkimizdaMapper) {
-        this.hakkimizdaRepository = hakkimizdaRepository;
-        this.hakkimizdaMapper = hakkimizdaMapper;
-    }
 
     @Override
     @Transactional
