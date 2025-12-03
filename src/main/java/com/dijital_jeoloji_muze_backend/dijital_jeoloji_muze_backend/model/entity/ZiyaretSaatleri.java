@@ -1,6 +1,5 @@
 package com.dijital_jeoloji_muze_backend.dijital_jeoloji_muze_backend.model.entity;
 
-import com.dijital_jeoloji_muze_backend.dijital_jeoloji_muze_backend.model.entity.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
