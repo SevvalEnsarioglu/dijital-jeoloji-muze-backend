@@ -6,5 +6,5 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface IletisimRepository extends MongoRepository<Iletisim, ObjectId> {
+public interface IletisimRepository extends MongoRepository<Iletisim, String> {
 }
