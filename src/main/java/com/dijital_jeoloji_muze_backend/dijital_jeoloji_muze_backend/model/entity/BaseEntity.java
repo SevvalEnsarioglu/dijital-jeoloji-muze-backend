@@ -24,7 +24,7 @@ public abstract class BaseEntity implements Persistable<String> {
     private Instant updatedAt;
     @Override
     public boolean isNew() {
-        // Eğer createdAt henüz oluşmamışsa veya ID yoksa, bu yenidir diyoruz, singleton id için
-        return createdAt == null || id == null;
+        // güncellendi
+        return this.id == null || this.id.isBlank();
     }
 }
