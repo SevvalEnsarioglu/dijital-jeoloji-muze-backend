@@ -6,6 +6,7 @@ import com.dijital_jeoloji_muze_backend.dijital_jeoloji_muze_backend.model.dto.r
 import com.dijital_jeoloji_muze_backend.dijital_jeoloji_muze_backend.model.entity.IletisimMesaji;
 import com.dijital_jeoloji_muze_backend.dijital_jeoloji_muze_backend.repository.IletisimMesajiRepository;
 import com.dijital_jeoloji_muze_backend.dijital_jeoloji_muze_backend.service.IletisimMesajiService;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
