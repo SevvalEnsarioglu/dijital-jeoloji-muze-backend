@@ -11,7 +11,6 @@ import java.time.Instant;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Document
 @Data
 public abstract class BaseEntity<T> implements Persistable<T> {
 
