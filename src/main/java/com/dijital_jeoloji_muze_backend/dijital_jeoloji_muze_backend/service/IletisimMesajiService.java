@@ -15,4 +15,6 @@ public interface IletisimMesajiService {
     IletisimMesajiResponseDTO updateIletisimMesaji(Integer id, IletisimMesajiRequestDTO request);
 
     void deleteIletisimMesaji(Integer id);
+    IletisimMesajiResponseDTO updateOkunduDurumu(Integer id, Boolean okundu);
+
 }
