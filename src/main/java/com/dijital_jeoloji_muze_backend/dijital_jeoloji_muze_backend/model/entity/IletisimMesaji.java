@@ -8,8 +8,8 @@ import org.springframework.data.mongodb.core.mapping.Field;
 @AllArgsConstructor
 @Data
 @EqualsAndHashCode(callSuper = true)
-@Document(collection = "bize_ulasin")
-public class BizeUlasin extends BaseEntity {
+@Document(collection = "iletisim-mesaji")
+public class IletisimMesaji extends BaseEntity {
     @Field(name = "ad")
     private String ad;
 
@@ -29,7 +29,5 @@ public class BizeUlasin extends BaseEntity {
     private String mesajiniz;
 
     @Field(name = "okundu")
-    @Builder.Default
     private Boolean okundu = false;
-
 }
