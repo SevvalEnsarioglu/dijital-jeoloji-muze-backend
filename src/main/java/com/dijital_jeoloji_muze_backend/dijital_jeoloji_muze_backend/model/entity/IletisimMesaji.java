@@ -8,7 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 @AllArgsConstructor
 @Data
 @EqualsAndHashCode(callSuper = true)
-@Document(collection = "iletisim-mesaji")
+@Document(collection = "iletisim_mesaji")
 public class IletisimMesaji extends BaseEntity<Integer> {
 
     @Field(name = "ad")
