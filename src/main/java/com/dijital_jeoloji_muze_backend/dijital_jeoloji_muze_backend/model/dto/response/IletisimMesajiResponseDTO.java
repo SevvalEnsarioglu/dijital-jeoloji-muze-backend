@@ -6,7 +6,7 @@ import java.time.Instant;
 
 public record IletisimMesajiResponseDTO(
         @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-        String id,
+        Integer id,
         String ad,
         String soyad,
         String email,

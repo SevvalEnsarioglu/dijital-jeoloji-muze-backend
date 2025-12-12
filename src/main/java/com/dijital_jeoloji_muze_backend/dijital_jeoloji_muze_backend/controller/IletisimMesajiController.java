@@ -31,21 +31,21 @@ public class IletisimMesajiController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<IletisimMesajiResponseDTO> getIletisimMesajiById(@PathVariable String id) {
+    public ResponseEntity<IletisimMesajiResponseDTO> getIletisimMesajiById(@PathVariable Integer id) {
         IletisimMesajiResponseDTO iletisim = iletisimMesajiService.getIletisimMesajiById(id);
         return ResponseEntity.ok(iletisim);
     }
 
     //gereksinim senaryosu bulamadım silebiliriz.
     @PutMapping("/{id}")
-    public ResponseEntity<IletisimMesajiResponseDTO> updateIletisimMesaji(@PathVariable String id,
+    public ResponseEntity<IletisimMesajiResponseDTO> updateIletisimMesaji(@PathVariable Integer id,
                                                                     @Valid @RequestBody IletisimMesajiRequestDTO request) {
         IletisimMesajiResponseDTO updated = iletisimMesajiService.updateIletisimMesaji(id, request);
         return ResponseEntity.ok(updated);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteIletisimMesaji(@PathVariable String id) {
+    public ResponseEntity<Void> deleteIletisimMesaji(@PathVariable Integer id) {
         iletisimMesajiService.deleteIletisimMesaji(id);
         return ResponseEntity.noContent().build();
     }

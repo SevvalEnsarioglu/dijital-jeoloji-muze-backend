@@ -10,9 +10,9 @@ public interface IletisimMesajiService {
 
     List<IletisimMesajiResponseDTO> getAllIletisimMesaji();
 
-    IletisimMesajiResponseDTO getIletisimMesajiById(String id);
+    IletisimMesajiResponseDTO getIletisimMesajiById(Integer id);
 
-    IletisimMesajiResponseDTO updateIletisimMesaji(String id, IletisimMesajiRequestDTO request);
+    IletisimMesajiResponseDTO updateIletisimMesaji(Integer id, IletisimMesajiRequestDTO request);
 
-    void deleteIletisimMesaji(String id);
+    void deleteIletisimMesaji(Integer id);
 }

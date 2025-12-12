@@ -41,7 +41,7 @@ public class IletisimMesajiServiceImpl implements IletisimMesajiService {
 
     @Override
     @Transactional(readOnly = true)
-    public IletisimMesajiResponseDTO getIletisimMesajiById(String id){
+    public IletisimMesajiResponseDTO getIletisimMesajiById(Integer id){
         return iletisimMesajiRepository.findById(id)
                 .map(iletisimMesajiMapper::toIletisimMesajiResponseDTO)
                 .orElseThrow(() -> new RuntimeException("İletişim kaydı bulunamadı. ID: " + id));
@@ -49,7 +49,7 @@ public class IletisimMesajiServiceImpl implements IletisimMesajiService {
 
     @Override
     @Transactional
-    public IletisimMesajiResponseDTO updateIletisimMesaji(String id, IletisimMesajiRequestDTO request){
+    public IletisimMesajiResponseDTO updateIletisimMesaji(Integer id, IletisimMesajiRequestDTO request){
         IletisimMesaji existing = iletisimMesajiRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Iletisim not found"));
 
@@ -67,7 +67,7 @@ public class IletisimMesajiServiceImpl implements IletisimMesajiService {
 
     @Override
     @Transactional
-    public void deleteIletisimMesaji(String id) {
+    public void deleteIletisimMesaji(Integer id) {
         if (!iletisimMesajiRepository.existsById(id)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Iletisim verisi bulunamadı");
         }
