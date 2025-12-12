@@ -1,11 +1,12 @@
 package com.dijital_jeoloji_muze_backend.dijital_jeoloji_muze_backend.model.dto.request;
 
-public record IletisimRequestDTO(
+public record IletisimMesajiRequestDTO(
         String ad,
         String soyad,
         String email,
         String konu,
         String telefon,
-        String mesaj
+        String mesaj,
+        Boolean okundu
 ) {
 }
