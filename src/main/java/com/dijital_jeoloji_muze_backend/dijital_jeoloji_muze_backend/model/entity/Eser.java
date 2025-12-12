@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Document(collection = "eser")
-public class Eser extends BaseEntity {
+public class Eser extends BaseEntity<Integer> {
     @Field(name = "isim")
     private String isim;
 

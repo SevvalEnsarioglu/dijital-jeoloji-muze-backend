@@ -1,9 +1,6 @@
 package com.dijital_jeoloji_muze_backend.dijital_jeoloji_muze_backend.model.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -11,8 +8,8 @@ import org.springframework.data.mongodb.core.mapping.Field;
 @AllArgsConstructor
 @Data
 @EqualsAndHashCode(callSuper = true)
-@Document(collection = "iletisim")
-public class Iletisim extends BaseEntity {
+@Document(collection = "iletisim-mesaji")
+public class IletisimMesaji extends BaseEntity<Integer> {
 
     @Field(name = "ad")
     private String ad;
@@ -29,7 +26,9 @@ public class Iletisim extends BaseEntity {
     @Field(name = "telefon")
     private String telefon;
 
-    @Field(name = "mesaj")
-    private String mesaj;
+    @Field(name = "mesajiniz")
+    private String mesajiniz;
 
+    @Field(name = "okundu")
+    private Boolean okundu = false;
 }

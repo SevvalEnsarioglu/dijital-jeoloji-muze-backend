@@ -13,7 +13,7 @@ import org.springframework.data.mongodb.core.index.Indexed;
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @Document(collection = "eser_yorum")
-public class EserYorum extends BaseEntity {
+public class EserYorum extends BaseEntity<Integer> {
 
     @Field(name = "eser_id")
     @Indexed

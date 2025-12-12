@@ -14,8 +14,7 @@ import java.time.LocalTime;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Document(collection = "ziyaret_saatleri")
-public class ZiyaretSaatleri extends BaseEntity {
-
+public class ZiyaretSaatleri extends BaseEntity<Integer> {
     @Field(name = "gun")
     private String gun;
 

@@ -9,19 +9,26 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.Instant;
 
-@Document
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
-public abstract class BaseEntity implements Persistable<String> {
+@Document
+@Data
+public abstract class BaseEntity<T> implements Persistable<T> {
+
     @Id
-    private String id;
+    protected T id;  // generic type parameter
 
     @CreatedDate
     private Instant createdAt;
 
     @LastModifiedDate
     private Instant updatedAt;
+
+    @Override
+    public T getId() {
+        return id;
+    }
+
     @Override
     public boolean isNew() {
         // Eğer createdAt henüz oluşmamışsa veya ID yoksa, bu yenidir diyoruz, singleton id için

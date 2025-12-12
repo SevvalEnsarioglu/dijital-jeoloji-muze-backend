@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.time.Instant;
 
-public record IletisimResponseDTO (
+public record IletisimMesajiResponseDTO(
         @JsonProperty(access = JsonProperty.Access.READ_ONLY)
         String id,
         String ad,
@@ -13,6 +13,7 @@ public record IletisimResponseDTO (
         String konu,
         String telefon,
         String mesaj,
+        Boolean okundu,
         Instant createdAt,
         Instant updatedAt
 
