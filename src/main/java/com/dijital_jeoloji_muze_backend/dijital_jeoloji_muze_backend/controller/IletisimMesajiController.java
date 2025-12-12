@@ -1,6 +1,7 @@
 package com.dijital_jeoloji_muze_backend.dijital_jeoloji_muze_backend.controller;
 
 import com.dijital_jeoloji_muze_backend.dijital_jeoloji_muze_backend.model.dto.request.IletisimMesajiRequestDTO;
+import com.dijital_jeoloji_muze_backend.dijital_jeoloji_muze_backend.model.dto.request.OkunduDurumuRequestDTO;
 import com.dijital_jeoloji_muze_backend.dijital_jeoloji_muze_backend.model.dto.response.IletisimMesajiResponseDTO;
 import com.dijital_jeoloji_muze_backend.dijital_jeoloji_muze_backend.service.IletisimMesajiService;
 import jakarta.validation.Valid;
@@ -50,4 +51,11 @@ public class IletisimMesajiController {
         return ResponseEntity.noContent().build();
     }
 
+    @PatchMapping("/{id}/okundu")
+    public ResponseEntity<IletisimMesajiResponseDTO> updateOkunduDurumu(
+            @PathVariable Integer id,
+            @RequestBody OkunduDurumuRequestDTO request) {
+        IletisimMesajiResponseDTO updated = iletisimMesajiService.updateOkunduDurumu(id, request.okundu());
+        return ResponseEntity.ok(updated);
+    }
 }

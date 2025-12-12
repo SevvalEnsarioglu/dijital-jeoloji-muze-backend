@@ -73,4 +73,15 @@ public class IletisimMesajiServiceImpl implements IletisimMesajiService {
         }
         iletisimMesajiRepository.deleteById(id);
     }
+
+    @Override
+    @Transactional
+    public IletisimMesajiResponseDTO updateOkunduDurumu(Integer id, Boolean okundu) {
+        IletisimMesaji existing = iletisimMesajiRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Iletisim mesajı bulunamadı. ID: " + id));
+
+        existing.setOkundu(okundu);
+        IletisimMesaji updated = iletisimMesajiRepository.save(existing);
+        return iletisimMesajiMapper.toIletisimMesajiResponseDTO(updated);
+    }
 }
