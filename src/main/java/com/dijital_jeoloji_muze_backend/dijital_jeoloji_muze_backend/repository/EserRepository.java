@@ -6,6 +6,6 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface EserRepository extends MongoRepository<Eser, String> {
+public interface EserRepository extends MongoRepository<Eser, Integer> {
 
 }

@@ -6,5 +6,5 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface AnasayfaRepository extends MongoRepository<Anasayfa, String> {
+public interface AnasayfaRepository extends MongoRepository<Anasayfa, Integer> {
 }
