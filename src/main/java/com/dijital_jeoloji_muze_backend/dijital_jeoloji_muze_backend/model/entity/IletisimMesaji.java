@@ -9,7 +9,8 @@ import org.springframework.data.mongodb.core.mapping.Field;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Document(collection = "iletisim-mesaji")
-public class IletisimMesaji extends BaseEntity {
+public class IletisimMesaji extends BaseEntity<Integer> {
+
     @Field(name = "ad")
     private String ad;
 

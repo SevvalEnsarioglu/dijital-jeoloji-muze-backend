@@ -13,7 +13,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Document(collection = "anasayfa")
-public class Anasayfa extends BaseEntity {
+public class Anasayfa extends BaseEntity<Integer> {
     @Field(name = "isim")
     private String isim;
 
