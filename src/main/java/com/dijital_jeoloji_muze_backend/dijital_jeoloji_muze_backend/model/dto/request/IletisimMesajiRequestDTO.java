@@ -6,6 +6,7 @@ public record IletisimMesajiRequestDTO(
         String email,
         String konu,
         String telefon,
-        String mesaj
+        String mesaj,
+        Boolean okundu
 ) {
 }
