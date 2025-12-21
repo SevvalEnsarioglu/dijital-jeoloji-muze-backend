@@ -14,11 +14,12 @@ import org.springframework.data.mongodb.core.mapping.Field;
 @EqualsAndHashCode(callSuper = true)
 @Document(collection = "anasayfa")
 public class Anasayfa extends BaseEntity<Integer> {
-    @Field(name = "isim")
-    private String isim;
 
     @Field(name = "foto")
     private Binary foto;
+
+    @Field(name = "foto_isim")
+    private String foto_isim;
 
     @Field(name= "aciklama")
     private String aciklama;
