@@ -6,7 +6,7 @@ import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface AnasayfaMapper {
-    Anasayfa toAnasayfaEntity(Anasayfa anasayfa);
+   // Anasayfa toAnasayfaEntity(Anasayfa anasayfa);
     AnasayfaResponseDTO toAnasayfaResponseDTO(Anasayfa anasayfa);
 
 }
