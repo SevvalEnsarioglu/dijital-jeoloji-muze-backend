@@ -12,7 +12,7 @@ public record IletisimMesajiResponseDTO(
         String email,
         String konu,
         String telefon,
-        String mesaj,
+        String mesajiniz,
         Boolean okundu,
         Instant createdAt,
         Instant updatedAt

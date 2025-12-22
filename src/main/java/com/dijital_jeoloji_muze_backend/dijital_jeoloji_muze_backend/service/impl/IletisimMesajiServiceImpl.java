@@ -59,7 +59,7 @@ public class IletisimMesajiServiceImpl implements IletisimMesajiService {
         existing.setEmail(request.email());
         existing.setKonu(request.konu());
         existing.setTelefon(request.telefon());
-        existing.setMesajiniz(request.mesaj());
+        existing.setMesajiniz(request.mesajiniz());
         existing.setOkundu(request.okundu());
 
         IletisimMesaji updated = iletisimMesajiRepository.save(existing);
