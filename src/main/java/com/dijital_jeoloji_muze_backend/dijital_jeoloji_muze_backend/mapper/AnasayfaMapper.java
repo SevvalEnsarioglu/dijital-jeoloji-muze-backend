@@ -2,24 +2,17 @@ package com.dijital_jeoloji_muze_backend.dijital_jeoloji_muze_backend.mapper;
 
 import com.dijital_jeoloji_muze_backend.dijital_jeoloji_muze_backend.model.dto.response.AnasayfaResponseDTO;
 import com.dijital_jeoloji_muze_backend.dijital_jeoloji_muze_backend.model.entity.Anasayfa;
-import org.bson.types.Binary;
+import com.dijital_jeoloji_muze_backend.dijital_jeoloji_muze_backend.util.BinaryBase64Converter;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.Named;
-
-import java.util.Base64;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Mapper(componentModel = "spring")
-public interface AnasayfaMapper {
+public abstract class AnasayfaMapper {
 
-    @Mapping(target = "fotoData", source = "foto", qualifiedByName = "binaryToBase64")
-    AnasayfaResponseDTO toAnasayfaResponseDTO(Anasayfa anasayfa);
+    @Autowired
+    protected BinaryBase64Converter converter;
 
-    @Named("binaryToBase64")
-    default String binaryToBase64(Binary foto) {
-        if (foto == null) {
-            return null;
-        }
-        return Base64.getEncoder().encodeToString(foto.getData());
-    }
+    @Mapping(target = "fotoData", expression = "java(converter.binaryToBase64(anasayfa.getFoto()))")
+    public abstract AnasayfaResponseDTO toAnasayfaResponseDTO(Anasayfa anasayfa);
 }
