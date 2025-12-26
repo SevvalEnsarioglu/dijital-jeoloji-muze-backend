@@ -1,12 +1,13 @@
 package com.dijital_jeoloji_muze_backend.dijital_jeoloji_muze_backend.controller;
 
+import com.dijital_jeoloji_muze_backend.dijital_jeoloji_muze_backend.model.dto.request.AnasayfaRequestDTO;
 import com.dijital_jeoloji_muze_backend.dijital_jeoloji_muze_backend.model.dto.response.AnasayfaResponseDTO;
 import com.dijital_jeoloji_muze_backend.dijital_jeoloji_muze_backend.service.AnasayfaService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -17,11 +18,13 @@ public class AnasayfaController {
 
     private final AnasayfaService anasayfaService;
 
-    @PostMapping("/upload")
+    @PostMapping
     public ResponseEntity<AnasayfaResponseDTO> createAnasayfa(
-            @RequestParam("aciklama") String aciklama,
-            @RequestParam("foto") MultipartFile foto) {
-        AnasayfaResponseDTO created = anasayfaService.createAnasayfa(aciklama, foto);
+            @ModelAttribute @Valid AnasayfaRequestDTO request) {
+        AnasayfaResponseDTO created = anasayfaService.createAnasayfa(
+                request.aciklama(),
+                request.foto()
+        );
         return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }
 
@@ -32,7 +35,8 @@ public class AnasayfaController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<AnasayfaResponseDTO> getAnasayfaById(@PathVariable Integer id) {
+    public ResponseEntity<AnasayfaResponseDTO> getAnasayfaById(
+            @PathVariable Integer id) {
         AnasayfaResponseDTO anasayfa = anasayfaService.getAnasayfaById(id);
         return ResponseEntity.ok(anasayfa);
     }
@@ -40,17 +44,19 @@ public class AnasayfaController {
     @PutMapping("/{id}")
     public ResponseEntity<AnasayfaResponseDTO> updateAnasayfa(
             @PathVariable Integer id,
-            @RequestParam("aciklama") String aciklama,
-            @RequestParam(value = "foto", required = false) MultipartFile foto) {
-        AnasayfaResponseDTO updated = anasayfaService.updateAnasayfa(id, aciklama, foto);
+            @ModelAttribute @Valid AnasayfaRequestDTO request) {
+        AnasayfaResponseDTO updated = anasayfaService.updateAnasayfa(
+                id,
+                request.aciklama(),
+                request.foto()
+        );
         return ResponseEntity.ok(updated);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteAnasayfa(@PathVariable Integer id) {
+    public ResponseEntity<Void> deleteAnasayfa(
+            @PathVariable Integer id) {
         anasayfaService.deleteAnasayfa(id);
         return ResponseEntity.noContent().build();
     }
-
-
 }
