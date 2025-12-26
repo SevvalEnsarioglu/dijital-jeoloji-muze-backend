@@ -1,4 +1,4 @@
-package com.dijital_jeoloji_muze_backend.dijital_jeoloji_muze_backend.config;
+package com.dijital_jeoloji_muze_backend.dijital_jeoloji_muze_backend.util;
 
 import com.dijital_jeoloji_muze_backend.dijital_jeoloji_muze_backend.model.entity.BaseEntity;
 import com.dijital_jeoloji_muze_backend.dijital_jeoloji_muze_backend.service.SequenceGeneratorService;
