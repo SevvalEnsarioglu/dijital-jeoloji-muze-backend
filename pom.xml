@@ -28,6 +28,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<lombok.version>1.18.30</lombok.version>
 		<mapstruct.version>1.5.5.Final</mapstruct.version>
+		<zxing.version>3.5.1</zxing.version>
 	</properties>
 
 	<!-- Dependencies -->
@@ -72,6 +73,21 @@
 			<groupId>jakarta.validation</groupId>
 			<artifactId>jakarta.validation-api</artifactId>
 			<version>3.0.2</version>
+		</dependency>
+
+		<!-- ============ ZXING - QR KOD OLUŞTURMA ============ -->
+		<!-- Zxing Core - QR kod encoder -->
+		<dependency>
+			<groupId>com.google.zxing</groupId>
+			<artifactId>core</artifactId>
+			<version>${zxing.version}</version>
+		</dependency>
+
+		<!-- Zxing JavaSE - Görsel işleme (PNG, JPG) -->
+		<dependency>
+			<groupId>com.google.zxing</groupId>
+			<artifactId>javase</artifactId>
+			<version>${zxing.version}</version>
 		</dependency>
 
 		<!-- Spring Boot Starter Test - Unit test için -->

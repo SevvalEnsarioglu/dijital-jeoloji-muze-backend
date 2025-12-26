@@ -1,7 +1,7 @@
 package com.dijital_jeoloji_muze_backend.dijital_jeoloji_muze_backend.model.entity;
 
 import lombok.*;
-import org.bson.types.ObjectId;
+import org.bson.types.Binary;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.data.mongodb.core.index.Indexed;
@@ -20,14 +20,14 @@ public class Eser extends BaseEntity<Integer> {
     @Field(name = "qr_link")
     private String qrLink;
 
-    @Field(name = "qr_id")
-    private ObjectId qrId;  // görselin GridFS id'si
+    @Field(name = "qr_foto")
+    private Binary qrFoto; //qr kod görseli (qr link aracılığıyla oluşturulacak)
 
-    @Field(name = "foto_id")
-    private ObjectId fotoId;
+    @Field(name = "foto") //ileride burası çoklu olabilir
+    private Binary foto;
 
-    @Field(name= "ses_id")
-    private ObjectId sesId;
+    @Field(name= "ses")
+    private Binary ses;
 
     @Field(name = "donem")
     private String donem;
@@ -46,6 +46,5 @@ public class Eser extends BaseEntity<Integer> {
 
     @Field(name= "goruntulenme_sayisi")
     @Indexed
-    private Long goruntulenmeSayisi;
-
+    private Long goruntulenmeSayisi = 0L;
 }
