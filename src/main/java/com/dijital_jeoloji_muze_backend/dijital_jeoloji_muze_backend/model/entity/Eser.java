@@ -46,5 +46,5 @@ public class Eser extends BaseEntity<Integer> {
 
     @Field(name= "goruntulenme_sayisi")
     @Indexed
-    private Long goruntulenmeSayisi;
+    private Long goruntulenmeSayisi = 0L;
 }
