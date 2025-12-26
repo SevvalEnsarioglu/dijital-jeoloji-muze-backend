@@ -6,6 +6,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 public interface AnasayfaService {
+
+
     AnasayfaResponseDTO createAnasayfa(String aciklama, MultipartFile foto);
 
     List<AnasayfaResponseDTO> getAllAnasayfa();
