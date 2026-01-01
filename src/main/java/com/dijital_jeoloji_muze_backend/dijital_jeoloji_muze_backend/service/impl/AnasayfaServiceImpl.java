@@ -28,10 +28,7 @@ public class AnasayfaServiceImpl implements AnasayfaService {
 
     // kısıt uyguladık
     private static final long MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
-    private static final String[] ALLOWED_TYPES = { "image/jpeg", "image/png", "image/gif", "image/webp" }; // İzin
-                                                                                                            // verilen
-                                                                                                            // görsel
-                                                                                                            // type'ları
+    private static final String[] ALLOWED_TYPES = { "image/jpeg", "image/png", "image/gif", "image/webp" };
 
     @Override
     @Transactional
