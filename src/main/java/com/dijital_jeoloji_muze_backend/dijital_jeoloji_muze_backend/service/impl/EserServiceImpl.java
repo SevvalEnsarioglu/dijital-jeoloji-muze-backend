@@ -210,7 +210,8 @@ public class EserServiceImpl implements EserService {
         }
     }
 
+    //simdilik calismayacak mantıken
     private String generateQrLink(Integer eserId) {
-        return "https://your-domain.com/eser/" + eserId;
+        return "http://localhost:5173/eser/" + eserId;
     }
 }
