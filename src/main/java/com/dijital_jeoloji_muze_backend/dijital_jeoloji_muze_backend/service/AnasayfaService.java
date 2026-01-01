@@ -7,14 +7,13 @@ import java.util.List;
 
 public interface AnasayfaService {
 
-
-    AnasayfaResponseDTO createAnasayfa(String aciklama, MultipartFile foto);
+    AnasayfaResponseDTO createAnasayfa(String baslik, String aciklama, MultipartFile foto);
 
     List<AnasayfaResponseDTO> getAllAnasayfa();
 
     AnasayfaResponseDTO getAnasayfaById(Integer id);
 
-    AnasayfaResponseDTO updateAnasayfa(Integer id, String aciklama, MultipartFile foto);
+    AnasayfaResponseDTO updateAnasayfa(Integer id, String baslik, String aciklama, MultipartFile foto);
 
     void deleteAnasayfa(Integer id);
 }

@@ -18,6 +18,9 @@ public class Anasayfa extends BaseEntity<Integer> {
     @Field(name = "foto")
     private Binary foto;
 
-    @Field(name= "aciklama")
+    @Field(name = "baslik")
+    private String baslik;
+
+    @Field(name = "aciklama")
     private String aciklama;
 }

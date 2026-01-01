@@ -26,20 +26,24 @@ public class AnasayfaServiceImpl implements AnasayfaService {
     private final AnasayfaRepository anasayfaRepository;
     private final AnasayfaMapper anasayfaMapper;
 
-    //kısıt uyguladık
+    // kısıt uyguladık
     private static final long MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
-    private static final String[] ALLOWED_TYPES = {"image/jpeg", "image/png", "image/gif", "image/webp"}; // İzin verilen görsel type'ları
+    private static final String[] ALLOWED_TYPES = { "image/jpeg", "image/png", "image/gif", "image/webp" }; // İzin
+                                                                                                            // verilen
+                                                                                                            // görsel
+                                                                                                            // type'ları
 
     @Override
     @Transactional
-    public AnasayfaResponseDTO createAnasayfa(String aciklama, MultipartFile foto) {
+    public AnasayfaResponseDTO createAnasayfa(String baslik, String aciklama, MultipartFile foto) {
         validateFoto(foto);
         try {
-            byte[] fotoBytes = foto.getBytes();      // MultipartFile'dan byte arrayi al
-            Binary binaryFoto = new Binary(fotoBytes);         // Byte arrayi MongoDB Binary formatına çevir
+            byte[] fotoBytes = foto.getBytes(); // MultipartFile'dan byte arrayi al
+            Binary binaryFoto = new Binary(fotoBytes); // Byte arrayi MongoDB Binary formatına çevir
 
             Anasayfa entity = new Anasayfa();
             entity.setFoto(binaryFoto);
+            entity.setBaslik(baslik);
             entity.setAciklama(aciklama);
             Anasayfa saved = anasayfaRepository.save(entity);
             return anasayfaMapper.toAnasayfaResponseDTO(saved);
@@ -47,8 +51,7 @@ public class AnasayfaServiceImpl implements AnasayfaService {
         } catch (IOException e) {
             throw new ResponseStatusException(
                     HttpStatus.INTERNAL_SERVER_ERROR,
-                    "Foto yükleme başarısız: " + e.getMessage()
-            );
+                    "Foto yükleme başarısız: " + e.getMessage());
         }
     }
 
@@ -70,21 +73,19 @@ public class AnasayfaServiceImpl implements AnasayfaService {
                     log.warn("Anasayfa bulunamadı. ID: {}", id);
                     return new ResponseStatusException(
                             HttpStatus.NOT_FOUND,
-                            "Anasayfa bulunamadı. ID: " + id
-                    );
+                            "Anasayfa bulunamadı. ID: " + id);
                 });
     }
 
     @Override
     @Transactional
-    public AnasayfaResponseDTO updateAnasayfa(Integer id, String aciklama, MultipartFile foto) {
+    public AnasayfaResponseDTO updateAnasayfa(Integer id, String baslik, String aciklama, MultipartFile foto) {
         Anasayfa existing = anasayfaRepository.findById(id)
                 .orElseThrow(() -> {
                     log.warn("Anasayfa bulunamadı. ID: {}", id);
                     return new ResponseStatusException(
                             HttpStatus.NOT_FOUND,
-                            "Anasayfa bulunamadı. ID: " + id
-                    );
+                            "Anasayfa bulunamadı. ID: " + id);
                 });
 
         if (foto != null && !foto.isEmpty()) {
@@ -97,15 +98,17 @@ public class AnasayfaServiceImpl implements AnasayfaService {
                 log.error("Foto yükleme başarısız oldu: {}", e.getMessage());
                 throw new ResponseStatusException(
                         HttpStatus.INTERNAL_SERVER_ERROR,
-                        "Foto yükleme başarısız: " + e.getMessage()
-                );
+                        "Foto yükleme başarısız: " + e.getMessage());
             }
+        }
+        if (baslik != null && !baslik.isBlank()) {
+            existing.setBaslik(baslik);
+            log.info("Başlık güncellendi. ID: {}", id);
         }
         if (aciklama != null && !aciklama.isBlank()) { // isBlank = boş ya da sadece boşluk
             existing.setAciklama(aciklama);
             log.info("Açıklama güncellendi. ID: {}", id);
         }
-
 
         Anasayfa updated = anasayfaRepository.save(existing);
         return anasayfaMapper.toAnasayfaResponseDTO(updated);
@@ -118,8 +121,7 @@ public class AnasayfaServiceImpl implements AnasayfaService {
             log.warn("Anasayfa bulunamadı. ID: {}", id);
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND,
-                    "Anasayfa bulunamadı. ID: " + id
-            );
+                    "Anasayfa bulunamadı. ID: " + id);
         }
         anasayfaRepository.deleteById(id); // Kaydı sil
         log.info("Anasayfa başarıyla silindi. ID: {}", id);
@@ -130,15 +132,13 @@ public class AnasayfaServiceImpl implements AnasayfaService {
             log.warn("Foto dosyası boş");
             throw new ResponseStatusException(
                     HttpStatus.BAD_REQUEST, // HTTP 400
-                    "Foto dosyası boş olamaz"
-            );
+                    "Foto dosyası boş olamaz");
         }
         if (foto.getSize() > MAX_FILE_SIZE) {
             log.warn("Foto çok büyük. Boyut: {} bytes", foto.getSize());
             throw new ResponseStatusException(
                     HttpStatus.BAD_REQUEST,
-                    "Foto boyutu 5MB'den küçük olmalıdır"
-            );
+                    "Foto boyutu 5MB'den küçük olmalıdır");
         }
 
         String contentType = foto.getContentType();
@@ -146,8 +146,7 @@ public class AnasayfaServiceImpl implements AnasayfaService {
             log.warn("Desteklenmeyen dosya tipi: {}", contentType);
             throw new ResponseStatusException(
                     HttpStatus.BAD_REQUEST,
-                    "Sadece JPEG, PNG, GIF ve WebP formatları desteklenir"
-            );
+                    "Sadece JPEG, PNG, GIF ve WebP formatları desteklenir");
         }
     }
 }

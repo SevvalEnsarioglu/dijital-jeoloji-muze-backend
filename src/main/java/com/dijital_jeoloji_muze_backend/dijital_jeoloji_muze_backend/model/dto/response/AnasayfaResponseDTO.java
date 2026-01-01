@@ -3,9 +3,10 @@ package com.dijital_jeoloji_muze_backend.dijital_jeoloji_muze_backend.model.dto.
 import java.time.Instant;
 
 public record AnasayfaResponseDTO(
-        Integer id,
-        String fotoData,
-        String aciklama,
-        Instant createdAt,
-        Instant updatedAt
-) {}
+                Integer id,
+                String fotoData,
+                String baslik,
+                String aciklama,
+                Instant createdAt,
+                Instant updatedAt) {
+}

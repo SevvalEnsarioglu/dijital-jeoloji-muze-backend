@@ -3,7 +3,7 @@ package com.dijital_jeoloji_muze_backend.dijital_jeoloji_muze_backend.model.dto.
 import org.springframework.web.multipart.MultipartFile;
 
 public record AnasayfaRequestDTO(
-        String aciklama,
-        MultipartFile foto
-) {
+                String baslik,
+                String aciklama,
+                MultipartFile foto) {
 }

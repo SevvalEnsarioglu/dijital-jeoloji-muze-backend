@@ -12,7 +12,9 @@ public class BinaryBase64Converter {
         if (binary == null) {
             return null;
         }
-        return Base64.getEncoder().encodeToString(binary.getData());
+        String base64String = Base64.getEncoder().encodeToString(binary.getData());
+        // Data URI formatında döndür değiştirildi
+        return "data:image/jpeg;base64," + base64String;
     }
 
     public Binary base64ToBinary(String base64String) {

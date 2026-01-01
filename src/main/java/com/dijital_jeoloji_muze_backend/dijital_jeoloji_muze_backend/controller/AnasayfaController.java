@@ -22,9 +22,9 @@ public class AnasayfaController {
     public ResponseEntity<AnasayfaResponseDTO> createAnasayfa(
             @ModelAttribute @Valid AnasayfaRequestDTO request) {
         AnasayfaResponseDTO created = anasayfaService.createAnasayfa(
+                request.baslik(),
                 request.aciklama(),
-                request.foto()
-        );
+                request.foto());
         return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }
 
@@ -47,9 +47,9 @@ public class AnasayfaController {
             @ModelAttribute @Valid AnasayfaRequestDTO request) {
         AnasayfaResponseDTO updated = anasayfaService.updateAnasayfa(
                 id,
+                request.baslik(),
                 request.aciklama(),
-                request.foto()
-        );
+                request.foto());
         return ResponseEntity.ok(updated);
     }
 
