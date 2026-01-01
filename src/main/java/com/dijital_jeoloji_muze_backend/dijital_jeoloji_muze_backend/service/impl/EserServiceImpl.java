@@ -38,7 +38,7 @@ public class EserServiceImpl implements EserService {
     @Transactional
     public EserResponseDTO createEser(EserRequestDTO request) {
         validateFoto(request.foto());
-        validateSes(request.ses());
+        if (request.ses() != null) validateSes(request.ses());
 
         try {
             Eser entity = new Eser();
@@ -63,8 +63,8 @@ public class EserServiceImpl implements EserService {
             Eser saved = eserRepository.save(entity);
 
             String qrLink = generateQrLink(saved.getId());
-
             byte[] qrCodeBytes = qrCodeGenerator.generateQrCode(qrLink, 300, 300);
+
             saved.setQrFoto(new Binary(qrCodeBytes));
             saved.setQrLink(qrLink);
 
@@ -73,13 +73,11 @@ public class EserServiceImpl implements EserService {
             return eserMapper.toEserResponseDTO(updatedWithQr);
 
         } catch (IOException e) {
-            throw new ResponseStatusException(
-                    HttpStatus.INTERNAL_SERVER_ERROR,
-                    "Dosya yükleme başarısız: " + e.getMessage());
+            log.error("Dosya yazma hatası: {}", e.getMessage());
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Dosya yükleme başarısız");
         } catch (Exception e) {
-            throw new ResponseStatusException(
-                    HttpStatus.INTERNAL_SERVER_ERROR,
-                    "QR kod oluşturma başarısız: " + e.getMessage());
+            log.error("QR Kod üretim hatası: {}", e.getMessage());
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "QR kod oluşturma başarısız");
         }
     }
 
@@ -97,13 +95,13 @@ public class EserServiceImpl implements EserService {
     public EserResponseDTO getEserById(Integer id) {
         Eser eser = eserRepository.findById(id)
                 .orElseThrow(() -> {
-                    return new ResponseStatusException(
-                            HttpStatus.NOT_FOUND,
-                            "Eser bulunamadı. ID: " + id);
+                    log.warn("Eser bulunamadı. ID: {}", id);
+                    return new ResponseStatusException(HttpStatus.NOT_FOUND, "Eser bulunamadı. ID: " + id);
                 });
+
         eser.setGoruntulenmeSayisi(eser.getGoruntulenmeSayisi() + 1);
-        eserRepository.save(eser);
-        return eserMapper.toEserResponseDTO(eser);
+        Eser saved = eserRepository.save(eser);
+        return eserMapper.toEserResponseDTO(saved);
     }
 
     @Override
@@ -111,49 +109,36 @@ public class EserServiceImpl implements EserService {
     public EserResponseDTO updateEser(Integer id, EserRequestDTO request) {
         Eser existing = eserRepository.findById(id)
                 .orElseThrow(() -> {
-                    return new ResponseStatusException(
-                            HttpStatus.NOT_FOUND,
-                            "Eser bulunamadı. ID: " + id);
+                    log.warn("Güncellenecek eser bulunamadı. ID: {}", id);
+                    return new ResponseStatusException(HttpStatus.NOT_FOUND, "Eser bulunamadı. ID: " + id);
                 });
 
         try {
-            if (request.isim() != null && !request.isim().isBlank()) {
-                existing.setIsim(request.isim());
-            }
-            if (request.donem() != null && !request.donem().isBlank()) {
-                existing.setDonem(request.donem());
-            }
-            if (request.boyut() != null && !request.boyut().isBlank()) {
-                existing.setBoyut(request.boyut());
-            }
-            if (request.getirenKisi() != null && !request.getirenKisi().isBlank()) {
-                existing.setGetirenKisi(request.getirenKisi());
-            }
-            if (request.getirildigiTarih() != null) {
-                existing.setGetirildigiTarih(request.getirildigiTarih());
-            }
-            if (request.aciklama() != null && !request.aciklama().isBlank()) {
-                existing.setAciklama(request.aciklama());
-            }
+            if (request.isim() != null && !request.isim().isBlank()) existing.setIsim(request.isim());
+            if (request.donem() != null && !request.donem().isBlank()) existing.setDonem(request.donem());
+            if (request.boyut() != null && !request.boyut().isBlank()) existing.setBoyut(request.boyut());
+            if (request.getirenKisi() != null && !request.getirenKisi().isBlank()) existing.setGetirenKisi(request.getirenKisi());
+            if (request.getirildigiTarih() != null) existing.setGetirildigiTarih(request.getirildigiTarih());
+            if (request.aciklama() != null && !request.aciklama().isBlank()) existing.setAciklama(request.aciklama());
+
             if (request.foto() != null && !request.foto().isEmpty()) {
                 validateFoto(request.foto());
-                byte[] fotoBytes = request.foto().getBytes();
-                existing.setFoto(new Binary(fotoBytes));
+                existing.setFoto(new Binary(request.foto().getBytes()));
+                log.info("Eser fotoğrafı güncellendi. ID: {}", id);
             }
+
             if (request.ses() != null && !request.ses().isEmpty()) {
                 validateSes(request.ses());
-                byte[] sesBytes = request.ses().getBytes();
-                existing.setSes(new Binary(sesBytes));
+                existing.setSes(new Binary(request.ses().getBytes()));
+                log.info("Eser ses dosyası güncellendi. ID: {}", id);
             }
 
             Eser updated = eserRepository.save(existing);
             return eserMapper.toEserResponseDTO(updated);
 
         } catch (IOException e) {
-            log.error("Dosya yükleme başarısız: {}", e.getMessage());
-            throw new ResponseStatusException(
-                    HttpStatus.INTERNAL_SERVER_ERROR,
-                    "Dosya yükleme başarısız: " + e.getMessage());
+            log.error("Güncelleme sırasında dosya hatası: {}", e.getMessage());
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Dosya yükleme başarısız");
         }
     }
 
@@ -161,56 +146,39 @@ public class EserServiceImpl implements EserService {
     @Transactional
     public void deleteEser(Integer id) {
         if (!eserRepository.existsById(id)) {
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND,
-                    "Eser bulunamadı. ID: " + id);
+            log.warn("Silinmek istenen eser bulunamadı. ID: {}", id);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Eser bulunamadı. ID: " + id);
         }
-
         eserRepository.deleteById(id);
+        log.info("Eser başarıyla silindi. ID: {}", id);
     }
 
     private void validateFoto(MultipartFile foto) {
         if (foto == null || foto.isEmpty()) {
-            throw new ResponseStatusException(
-                    HttpStatus.BAD_REQUEST,
-                    "Foto dosyası boş olamaz");
+            log.warn("Fotoğraf dosyası eksik");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Foto dosyası boş olamaz");
         }
-        if (foto.getSize() > MAX_FILE_SIZE) {
-            log.warn("Foto çok büyük. Boyut: {} bytes", foto.getSize());
-            throw new ResponseStatusException(
-                    HttpStatus.BAD_REQUEST,
-                    "Foto boyutu 5MB'den küçük olmalıdır");
-        }
-
-        String contentType = foto.getContentType();
-        if (contentType == null || !Arrays.asList(ALLOWED_IMAGE_TYPES).contains(contentType)) {
-            throw new ResponseStatusException(
-                    HttpStatus.BAD_REQUEST,
-                    "Sadece JPEG, PNG, GIF ve WebP formatları desteklenir");
-        }
+        commonValidation(foto, ALLOWED_IMAGE_TYPES, "Fotoğraf");
     }
 
     private void validateSes(MultipartFile ses) {
-        if (ses == null || ses.isEmpty()) {
-            return;
-        }
-        if (ses.getSize() > MAX_FILE_SIZE) {
-            log.warn("Ses dosyası çok büyük. Boyut: {} bytes", ses.getSize());
-            throw new ResponseStatusException(
-                    HttpStatus.BAD_REQUEST,
-                    "Ses dosyası boyutu 5MB'den küçük olmalıdır");
+        if (ses == null || ses.isEmpty()) return;
+        commonValidation(ses, ALLOWED_AUDIO_TYPES, "Ses");
+    }
+
+    private void commonValidation(MultipartFile file, String[] allowedTypes, String label) {
+        if (file.getSize() > MAX_FILE_SIZE) {
+            log.warn("{} dosyası limit üstü. Boyut: {} bytes", label, file.getSize());
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, label + " boyutu 5MB'den küçük olmalıdır");
         }
 
-        String contentType = ses.getContentType();
-        if (contentType == null || !Arrays.asList(ALLOWED_AUDIO_TYPES).contains(contentType)) {
-            log.warn("Desteklenmeyen ses formatı: {}", contentType);
-            throw new ResponseStatusException(
-                    HttpStatus.BAD_REQUEST,
-                    "Sadece MP3, WAV, OGG ve WebM formatları desteklenir");
+        String contentType = file.getContentType();
+        if (contentType == null || !Arrays.asList(allowedTypes).contains(contentType)) {
+            log.warn("Geçersiz {} formatı: {}", label, contentType);
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Desteklenmeyen " + label + " formatı");
         }
     }
 
-    //simdilik calismayacak mantıken
     private String generateQrLink(Integer eserId) {
         return "http://localhost:5173/eser/" + eserId;
     }
