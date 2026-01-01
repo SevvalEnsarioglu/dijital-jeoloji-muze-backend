@@ -42,7 +42,7 @@ public class Eser extends BaseEntity<Integer> {
     private LocalDate getirildigiTarih;
 
     @Field(name= "aciklama")
-    private String aciklama;
+    private String aciklama; //ileride bunu ai a yazdırma işi yapılabilir
 
     @Field(name= "goruntulenme_sayisi")
     @Indexed
