@@ -19,11 +19,11 @@ public class AdminUser extends BaseEntity<Integer> {
     private String username;
 
     @Field(name = "password")
-    private String password; // Şifreli olacak (bcrypt)
+    private String password;
 
     @Field(name = "email")
     private String email;
 
     @Field(name = "is_active")
-    private Boolean isActive = true;
+    private Boolean isActive = true; //admin aktif mi diye
 }
