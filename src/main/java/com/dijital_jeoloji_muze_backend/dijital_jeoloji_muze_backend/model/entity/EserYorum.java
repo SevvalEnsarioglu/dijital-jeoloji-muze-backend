@@ -19,7 +19,7 @@ public class EserYorum extends BaseEntity<Integer> {
 
     @Field(name = "eser_id")
     @Indexed
-    private String eserID;
+    private Integer eserID;
 
     @Field(name="ad_soyad")
     private String adSoyad;
