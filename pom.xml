@@ -30,7 +30,6 @@
 		<mapstruct.version>1.5.5.Final</mapstruct.version>
 		<zxing.version>3.5.1</zxing.version>
 		<jjwt.version>0.12.3</jjwt.version>
-		<logback.version>1.5.6</logback.version>
 		<tomcat.version>10.1.31</tomcat.version>
 	</properties>
 
@@ -134,13 +133,6 @@
 		</dependency>
 
 		<!-- ============ GÜVENLİK AÇIĞI KAPATMA ============ -->
-		<!-- Logback Core - Güvenlik güncellemesi -->
-		<dependency>
-			<groupId>ch.qos.logback</groupId>
-			<artifactId>logback-core</artifactId>
-			<version>${logback.version}</version>
-		</dependency>
-
 		<!-- Tomcat Embed Core - Güvenlik güncellemesi -->
 		<dependency>
 			<groupId>org.apache.tomcat.embed</groupId>
