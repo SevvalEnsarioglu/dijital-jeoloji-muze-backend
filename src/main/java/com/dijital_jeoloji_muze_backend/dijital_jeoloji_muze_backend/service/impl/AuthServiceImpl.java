@@ -32,7 +32,7 @@ public class AuthServiceImpl implements AuthService {
         if (!admin.getIsActive()) {
             throw new ResponseStatusException(
                     HttpStatus.UNAUTHORIZED,
-                    "Admin hesabı deaktif");
+                    "Admin hesabı aktif değil");
         }
         if (!passwordEncoder.matches(request.password(), admin.getPassword())) {
             throw new ResponseStatusException(
