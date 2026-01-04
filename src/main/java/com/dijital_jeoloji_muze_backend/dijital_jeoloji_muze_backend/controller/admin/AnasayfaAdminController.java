@@ -16,6 +16,13 @@ public class AnasayfaAdminController {
 
     private final AnasayfaService anasayfaService;
 
+    @GetMapping("/{id}")
+    public ResponseEntity<AnasayfaResponseDTO> getAnasayfaById(
+            @PathVariable Integer id) {
+        AnasayfaResponseDTO anasayfa = anasayfaService.getAnasayfaById(id);
+        return ResponseEntity.ok(anasayfa);
+    }
+
     @PostMapping
     public ResponseEntity<AnasayfaResponseDTO> createAnasayfa(
             @ModelAttribute @Valid AnasayfaRequestDTO request) {

@@ -21,11 +21,4 @@ public class AnasayfaController {
         return ResponseEntity.ok(anasayfaList);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<AnasayfaResponseDTO> getAnasayfaById(
-            @PathVariable Integer id) {
-        AnasayfaResponseDTO anasayfa = anasayfaService.getAnasayfaById(id);
-        return ResponseEntity.ok(anasayfa);
-    }
-
 }
