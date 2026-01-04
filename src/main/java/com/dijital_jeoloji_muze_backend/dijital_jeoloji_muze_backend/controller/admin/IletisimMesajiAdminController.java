@@ -29,7 +29,7 @@ public class IletisimMesajiAdminController {
         return ResponseEntity.ok(iletisim);
     }
 
-    //gereksinim senaryosu bulamadım silebiliriz.
+    //gereksinim senaryosu bulamadım silebiliriz
     @PutMapping("/{id}")
     public ResponseEntity<IletisimMesajiResponseDTO> updateIletisimMesaji(@PathVariable Integer id,
                                                                           @Valid @RequestBody IletisimMesajiRequestDTO request) {
