@@ -22,7 +22,6 @@ public class IletisimMesajiAdminController {
         List<IletisimMesajiResponseDTO> iletisimList = iletisimMesajiService.getAllIletisimMesaji();
         return ResponseEntity.ok(iletisimList);
     }
-
     @GetMapping("/{id}")
     public ResponseEntity<IletisimMesajiResponseDTO> getIletisimMesajiById(@PathVariable Integer id) {
         IletisimMesajiResponseDTO iletisim = iletisimMesajiService.getIletisimMesajiById(id);
