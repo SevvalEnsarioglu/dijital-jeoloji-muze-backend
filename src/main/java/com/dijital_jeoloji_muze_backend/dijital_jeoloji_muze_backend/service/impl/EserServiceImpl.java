@@ -7,6 +7,7 @@ import com.dijital_jeoloji_muze_backend.dijital_jeoloji_muze_backend.model.entit
 import com.dijital_jeoloji_muze_backend.dijital_jeoloji_muze_backend.repository.EserRepository;
 import com.dijital_jeoloji_muze_backend.dijital_jeoloji_muze_backend.service.EserService;
 import com.dijital_jeoloji_muze_backend.dijital_jeoloji_muze_backend.util.QrCodeGenerator;
+import org.springframework.beans.factory.annotation.Value;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.bson.types.Binary;
@@ -29,6 +30,9 @@ public class EserServiceImpl implements EserService {
     private final EserRepository eserRepository;
     private final EserMapper eserMapper;
     private final QrCodeGenerator qrCodeGenerator;
+
+    @Value("${app.frontend.base-url}")
+    private String frontendBaseUrl;
 
     private static final long MAX_FILE_SIZE = 5 * 1024 * 1024;
     private static final String[] ALLOWED_IMAGE_TYPES = { "image/jpeg", "image/png", "image/gif", "image/webp" };
@@ -180,6 +184,6 @@ public class EserServiceImpl implements EserService {
     }
 
     private String generateQrLink(Integer eserId) {
-        return "http://localhost:5173/eser/" + eserId;
+        return frontendBaseUrl + "/eser/" + eserId;
     }
 }
