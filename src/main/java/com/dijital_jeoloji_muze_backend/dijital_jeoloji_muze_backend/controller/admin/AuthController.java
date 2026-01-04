@@ -1,4 +1,4 @@
-package com.dijital_jeoloji_muze_backend.dijital_jeoloji_muze_backend.controller;
+package com.dijital_jeoloji_muze_backend.dijital_jeoloji_muze_backend.controller.admin;
 
 import com.dijital_jeoloji_muze_backend.dijital_jeoloji_muze_backend.model.dto.request.LoginRequestDTO;
 import com.dijital_jeoloji_muze_backend.dijital_jeoloji_muze_backend.model.dto.response.LoginResponseDTO;
