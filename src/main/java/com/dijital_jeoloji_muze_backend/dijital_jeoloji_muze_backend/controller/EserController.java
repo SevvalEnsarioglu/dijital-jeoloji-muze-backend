@@ -1,11 +1,8 @@
 package com.dijital_jeoloji_muze_backend.dijital_jeoloji_muze_backend.controller;
 
-import com.dijital_jeoloji_muze_backend.dijital_jeoloji_muze_backend.model.dto.request.EserRequestDTO;
 import com.dijital_jeoloji_muze_backend.dijital_jeoloji_muze_backend.model.dto.response.EserResponseDTO;
 import com.dijital_jeoloji_muze_backend.dijital_jeoloji_muze_backend.service.EserService;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
