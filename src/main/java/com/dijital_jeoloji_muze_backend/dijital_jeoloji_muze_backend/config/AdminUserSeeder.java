@@ -26,20 +26,19 @@ public class AdminUserSeeder implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         if (adminUserRepository.findByUsername(adminUsername).isPresent()) {
-            log.info("Admin zaten var: {}", adminUsername);
+            log.info("Admin var: {}", adminUsername);
             return;
         }
 
-        // Admin oluştur
         AdminUser admin = new AdminUser();
         admin.setUsername(adminUsername);
-        admin.setPassword(passwordEncoder.encode(adminPassword)); // Şifreyi bcrypt ile şifrele!
-        admin.setEmail("admin@dijitaljeoloji.com");
+        admin.setPassword(passwordEncoder.encode(adminPassword));
+        admin.setEmail("admin@dijitaljeoloji.com"); //bu mail dümen ahkjsdhkdjas
         admin.setIsActive(true);
 
         adminUserRepository.save(admin);
-        log.info("✅ Admin oluşturuldu!");
-        log.info("👤 Username: {}", adminUsername);
-        log.info("🔐 Password: *** (şifreli)");
+        log.info("Admin oluşturuldu!");
+        log.info("Username: {}", adminUsername);
+        log.info("Password: ****** ");
     }
 }
