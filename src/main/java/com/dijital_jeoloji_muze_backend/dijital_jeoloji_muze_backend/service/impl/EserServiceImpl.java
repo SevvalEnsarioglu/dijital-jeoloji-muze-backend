@@ -42,7 +42,8 @@ public class EserServiceImpl implements EserService {
     @Transactional
     public EserResponseDTO createEser(EserRequestDTO request) {
         validateFoto(request.foto());
-        if (request.ses() != null) validateSes(request.ses());
+        if (request.ses() != null)
+            validateSes(request.ses());
 
         try {
             Eser entity = new Eser();
@@ -118,12 +119,18 @@ public class EserServiceImpl implements EserService {
                 });
 
         try {
-            if (request.isim() != null && !request.isim().isBlank()) existing.setIsim(request.isim());
-            if (request.donem() != null && !request.donem().isBlank()) existing.setDonem(request.donem());
-            if (request.boyut() != null && !request.boyut().isBlank()) existing.setBoyut(request.boyut());
-            if (request.getirenKisi() != null && !request.getirenKisi().isBlank()) existing.setGetirenKisi(request.getirenKisi());
-            if (request.getirildigiTarih() != null) existing.setGetirildigiTarih(request.getirildigiTarih());
-            if (request.aciklama() != null && !request.aciklama().isBlank()) existing.setAciklama(request.aciklama());
+            if (request.isim() != null && !request.isim().isBlank())
+                existing.setIsim(request.isim());
+            if (request.donem() != null && !request.donem().isBlank())
+                existing.setDonem(request.donem());
+            if (request.boyut() != null && !request.boyut().isBlank())
+                existing.setBoyut(request.boyut());
+            if (request.getirenKisi() != null && !request.getirenKisi().isBlank())
+                existing.setGetirenKisi(request.getirenKisi());
+            if (request.getirildigiTarih() != null)
+                existing.setGetirildigiTarih(request.getirildigiTarih());
+            if (request.aciklama() != null && !request.aciklama().isBlank())
+                existing.setAciklama(request.aciklama());
 
             if (request.foto() != null && !request.foto().isEmpty()) {
                 validateFoto(request.foto());
@@ -166,7 +173,8 @@ public class EserServiceImpl implements EserService {
     }
 
     private void validateSes(MultipartFile ses) {
-        if (ses == null || ses.isEmpty()) return;
+        if (ses == null || ses.isEmpty())
+            return;
         commonValidation(ses, ALLOWED_AUDIO_TYPES, "Ses");
     }
 
@@ -184,6 +192,7 @@ public class EserServiceImpl implements EserService {
     }
 
     private String generateQrLink(Integer eserId) {
-        return frontendBaseUrl + "/eser/" + eserId;
+        return frontendBaseUrl + "/eserler/" + eserId; // burası değişti
+
     }
 }

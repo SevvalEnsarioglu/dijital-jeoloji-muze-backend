@@ -21,7 +21,6 @@ public class CorsConfig {
     @Value("${app.cors.exposed-headers}")
     private String exposedHeaders;
 
-
     @Bean
     public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurer() {
@@ -36,6 +35,7 @@ public class CorsConfig {
             }
         };
     }
+
     private String[] getTrimmedArray(String value) {
         return java.util.Arrays.stream(value.split(","))
                 .map(String::trim)
