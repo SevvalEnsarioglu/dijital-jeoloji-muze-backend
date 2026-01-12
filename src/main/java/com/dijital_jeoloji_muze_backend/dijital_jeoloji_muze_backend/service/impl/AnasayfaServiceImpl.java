@@ -58,8 +58,14 @@ public class AnasayfaServiceImpl implements AnasayfaService {
     @Cacheable(value = "anasayfaList", unless = "#result == null || #result.isEmpty()")
     @Override
     @Transactional(readOnly = true)
-    public List<AnasayfaResponseDTO> getAllAnasayfa() {
-        return anasayfaRepository.findAll(Sort.by(Sort.Direction.DESC, "id"))
+    public List<AnasayfaResponseDTO> getAllAnasayfa(String sortBy, String sortDirection) {
+        Sort.Direction direction = sortDirection.equalsIgnoreCase("ASC")
+                ? Sort.Direction.ASC
+                : Sort.Direction.DESC;
+
+        Sort sort = Sort.by(direction, sortBy);
+
+        return anasayfaRepository.findAll(sort)
                 .stream()
                 .map(anasayfaMapper::toAnasayfaResponseDTO)
                 .toList();
