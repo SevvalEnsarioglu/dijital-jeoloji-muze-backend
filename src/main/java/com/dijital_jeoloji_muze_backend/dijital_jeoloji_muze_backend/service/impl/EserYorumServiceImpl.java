@@ -49,8 +49,14 @@ public class EserYorumServiceImpl implements EserYorumService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<EserYorumResponseDTO> getYorumByEserId(Integer eserID) {
-        List<EserYorum> yorumList = eserYorumRepository.findByEserID(eserID, Sort.by(Sort.Direction.DESC, "id"));
+    public List<EserYorumResponseDTO> getYorumByEserId(Integer eserID, String sortBy, String sortDirection) {
+        Sort.Direction direction = sortDirection.equalsIgnoreCase("ASC")
+                ? Sort.Direction.ASC
+                : Sort.Direction.DESC;
+
+        Sort sort = Sort.by(direction, sortBy);
+
+        List<EserYorum> yorumList = eserYorumRepository.findByEserID(eserID, sort);
         return yorumList.stream()
                 .map(eserYorumMapper::toResponseDTO)
                 .toList();
