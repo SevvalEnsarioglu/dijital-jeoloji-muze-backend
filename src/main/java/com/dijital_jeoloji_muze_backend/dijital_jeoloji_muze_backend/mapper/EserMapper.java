@@ -7,7 +7,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.springframework.beans.factory.annotation.Autowired;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = {EserYorumMapper.class})
 public abstract class EserMapper {
     @Autowired
     protected BinaryBase64Converter converter;
@@ -15,6 +15,7 @@ public abstract class EserMapper {
     @Mapping(target = "qrFoto", expression = "java(converter.binaryToBase64(eser.getQrFoto()))")
     @Mapping(target = "foto", expression = "java(converter.binaryToBase64(eser.getFoto()))")
     @Mapping(target = "ses", expression = "java(converter.binaryToBase64(eser.getSes()))")
+    @Mapping(target = "eserYorumlari", source = "eserYorumlari")
     public abstract EserResponseDTO toEserResponseDTO(Eser eser);
 
 }
