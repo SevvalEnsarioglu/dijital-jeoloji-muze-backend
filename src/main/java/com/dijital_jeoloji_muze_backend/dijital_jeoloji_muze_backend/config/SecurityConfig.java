@@ -70,7 +70,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/iletisim/**").permitAll()
 
                         // Login endpoint'i public (herkes giriş yapabilir)
-                        .requestMatchers("/api/admin/auth/**").permitAll()
+                        .requestMatchers("/api/adminauth/**").permitAll()
 
                         // /api/admin/** → token gerekli (authenticated), buraya sadece doğru token ile giriliyo
                         .requestMatchers("/api/admin/**").authenticated()
