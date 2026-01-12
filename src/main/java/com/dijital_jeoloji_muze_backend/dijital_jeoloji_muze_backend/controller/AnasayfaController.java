@@ -16,8 +16,11 @@ public class AnasayfaController {
     private final AnasayfaService anasayfaService;
 
     @GetMapping
-    public ResponseEntity<List<AnasayfaResponseDTO>> getAllAnasayfa() {
-        List<AnasayfaResponseDTO> anasayfaList = anasayfaService.getAllAnasayfa();
+    public ResponseEntity<List<AnasayfaResponseDTO>> getAllAnasayfa(
+            @RequestParam(defaultValue = "id") String sortBy,
+            @RequestParam(defaultValue = "DESC") String sortDirection
+    ) {
+        List<AnasayfaResponseDTO> anasayfaList = anasayfaService.getAllAnasayfa(sortBy, sortDirection);
         return ResponseEntity.ok(anasayfaList);
     }
 
