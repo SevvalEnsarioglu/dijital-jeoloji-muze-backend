@@ -5,8 +5,10 @@ import com.dijital_jeoloji_muze_backend.dijital_jeoloji_muze_backend.model.dto.r
 import com.dijital_jeoloji_muze_backend.dijital_jeoloji_muze_backend.model.dto.response.EserResponseDTO;
 import com.dijital_jeoloji_muze_backend.dijital_jeoloji_muze_backend.model.entity.Eser;
 import com.dijital_jeoloji_muze_backend.dijital_jeoloji_muze_backend.repository.EserRepository;
+import com.dijital_jeoloji_muze_backend.dijital_jeoloji_muze_backend.repository.EserYorumRepository;
 import com.dijital_jeoloji_muze_backend.dijital_jeoloji_muze_backend.service.EserService;
 import com.dijital_jeoloji_muze_backend.dijital_jeoloji_muze_backend.util.QrCodeGenerator;
+import com.dijital_jeoloji_muze_backend.dijital_jeoloji_muze_backend.model.entity.EserYorum;
 import org.springframework.beans.factory.annotation.Value;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -32,6 +34,7 @@ public class EserServiceImpl implements EserService {
     private final EserRepository eserRepository;
     private final EserMapper eserMapper;
     private final QrCodeGenerator qrCodeGenerator;
+    private final EserYorumRepository eserYorumRepository;
 
     @Value("${app.frontend.base-url}")
     private String frontendBaseUrl;
@@ -122,6 +125,13 @@ public class EserServiceImpl implements EserService {
                 });
 
         eser.setGoruntulenmeSayisi(eser.getGoruntulenmeSayisi() + 1);
+
+        List<EserYorum> yorumlar = eserYorumRepository.findByEserID(
+                id,
+                Sort.by(Sort.Direction.DESC, "createdAt")
+        );
+        eser.setEserYorumlari(yorumlar);
+
         Eser saved = eserRepository.save(eser);
         return eserMapper.toEserResponseDTO(saved);
     }
