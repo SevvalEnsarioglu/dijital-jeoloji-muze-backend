@@ -5,6 +5,8 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.domain.Persistable;
+import org.springframework.data.mongodb.core.index.IndexDirection;
+import org.springframework.data.mongodb.core.index.Indexed;
 
 import java.time.Instant;
 
@@ -17,6 +19,7 @@ public abstract class BaseEntity<T> implements Persistable<T> {
     protected T id;  // generic type parameter
 
     @CreatedDate
+    @Indexed(direction = IndexDirection.DESCENDING)
     private Instant createdAt;
 
     @LastModifiedDate

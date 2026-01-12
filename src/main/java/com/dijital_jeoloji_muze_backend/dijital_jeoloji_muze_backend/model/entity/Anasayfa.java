@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.bson.types.Binary;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -18,7 +19,9 @@ public class Anasayfa extends BaseEntity<Integer> {
     @Field(name = "foto")
     private Binary foto;
 
+
     @Field(name = "baslik")
+    @Indexed
     private String baslik;
 
     @Field(name = "aciklama")

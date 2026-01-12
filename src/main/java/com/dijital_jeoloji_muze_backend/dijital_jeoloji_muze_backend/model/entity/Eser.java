@@ -14,6 +14,8 @@ import java.time.LocalDate;
 @EqualsAndHashCode(callSuper = true)
 @Document(collection = "eser")
 public class Eser extends BaseEntity<Integer> {
+
+    @Indexed
     @Field(name = "isim")
     private String isim;
 

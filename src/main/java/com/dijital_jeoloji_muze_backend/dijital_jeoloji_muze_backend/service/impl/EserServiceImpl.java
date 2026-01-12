@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Value;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.bson.types.Binary;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -38,6 +40,7 @@ public class EserServiceImpl implements EserService {
     private static final String[] ALLOWED_IMAGE_TYPES = { "image/jpeg", "image/png", "image/gif", "image/webp" };
     private static final String[] ALLOWED_AUDIO_TYPES = { "audio/mpeg", "audio/wav", "audio/ogg", "audio/webm" };
 
+    @CacheEvict(value = "eserList", allEntries = true)
     @Override
     @Transactional
     public EserResponseDTO createEser(EserRequestDTO request) {
@@ -86,6 +89,7 @@ public class EserServiceImpl implements EserService {
         }
     }
 
+    @Cacheable(value = "eserList", unless = "#result == null || #result.isEmpty()")
     @Override
     @Transactional(readOnly = true)
     public List<EserResponseDTO> getAllEser() {
@@ -109,6 +113,7 @@ public class EserServiceImpl implements EserService {
         return eserMapper.toEserResponseDTO(saved);
     }
 
+    @CacheEvict(value = {"eserList", "eserDetail"}, allEntries = true)
     @Override
     @Transactional
     public EserResponseDTO updateEser(Integer id, EserRequestDTO request) {
@@ -153,6 +158,7 @@ public class EserServiceImpl implements EserService {
         }
     }
 
+    @CacheEvict(value = {"eserList", "eserDetail"}, allEntries = true)
     @Override
     @Transactional
     public void deleteEser(Integer id) {

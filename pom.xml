@@ -54,6 +54,13 @@
 			<artifactId>spring-boot-starter-validation</artifactId>
 		</dependency>
 
+		<!-- ============ SPRING CACHE ============ -->
+		<!-- Spring Boot Starter Cache - In-memory caching -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-cache</artifactId>
+		</dependency>
+
 		<!-- Spring Security - Authentication ve authorization için -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -139,6 +146,7 @@
 			<artifactId>tomcat-embed-core</artifactId>
 			<version>${tomcat.version}</version>
 		</dependency>
+
 
 		<!-- ============ TEST ============ -->
 		<!-- Spring Boot Starter Test - Unit test için -->
