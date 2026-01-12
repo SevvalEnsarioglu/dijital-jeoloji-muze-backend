@@ -92,9 +92,22 @@ public class EserServiceImpl implements EserService {
     @Cacheable(value = "eserList", unless = "#result == null || #result.isEmpty()")
     @Override
     @Transactional(readOnly = true)
-    public List<EserResponseDTO> getAllEser() {
-        return eserRepository.findAll(Sort.by(Sort.Direction.DESC, "id"))
-                .stream()
+    public List<EserResponseDTO> getAllEser(String isim, String sortBy, String sortDirection) {
+        Sort.Direction direction = sortDirection.equalsIgnoreCase("ASC")
+                ? Sort.Direction.ASC
+                : Sort.Direction.DESC;
+
+        Sort sort = Sort.by(direction, sortBy);
+
+        List<Eser> eserList;
+
+        if (isim != null && !isim.isBlank()) {
+            eserList = eserRepository.findByIsimContainingIgnoreCase(isim, sort);
+        } else {
+            eserList = eserRepository.findAll(sort);
+        }
+
+        return eserList.stream()
                 .map(eserMapper::toEserResponseDTO)
                 .toList();
     }
