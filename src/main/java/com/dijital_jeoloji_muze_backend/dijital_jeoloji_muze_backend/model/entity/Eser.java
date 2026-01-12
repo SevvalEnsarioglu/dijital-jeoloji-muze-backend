@@ -2,11 +2,14 @@ package com.dijital_jeoloji_muze_backend.dijital_jeoloji_muze_backend.model.enti
 
 import lombok.*;
 import org.bson.types.Binary;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.data.mongodb.core.index.Indexed;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -49,4 +52,7 @@ public class Eser extends BaseEntity<Integer> {
     @Field(name= "goruntulenme_sayisi")
     @Indexed
     private Long goruntulenmeSayisi = 0L;
+
+    @Transient  // mongo db kaydetmeden, ilişkisel durumun runtime da kullanılması için
+    private List<EserYorum> eserYorumlari = new ArrayList<>();
 }

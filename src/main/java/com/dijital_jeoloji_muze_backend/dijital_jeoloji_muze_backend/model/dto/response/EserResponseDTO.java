@@ -3,6 +3,7 @@ package com.dijital_jeoloji_muze_backend.dijital_jeoloji_muze_backend.model.dto.
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.util.List;
 
 public record EserResponseDTO(
         @JsonProperty(access = JsonProperty.Access.READ_ONLY)
@@ -18,6 +19,7 @@ public record EserResponseDTO(
         LocalDate getirildigiTarih,
         String aciklama,
         Long goruntulenmeSayisi,
+        List<EserYorumResponseDTO> eserYorumlari,
         Instant createdAt,
         Instant updatedAt
 ) {
