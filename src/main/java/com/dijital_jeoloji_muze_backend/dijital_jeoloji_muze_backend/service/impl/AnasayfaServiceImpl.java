@@ -8,6 +8,8 @@ import com.dijital_jeoloji_muze_backend.dijital_jeoloji_muze_backend.service.Ana
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.bson.types.Binary;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -30,6 +32,7 @@ public class AnasayfaServiceImpl implements AnasayfaService {
     private static final long MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
     private static final String[] ALLOWED_TYPES = { "image/jpeg", "image/png", "image/gif", "image/webp" };
 
+    @CacheEvict(value = "anasayfaList", allEntries = true)
     @Override
     @Transactional
     public AnasayfaResponseDTO createAnasayfa(String baslik, String aciklama, MultipartFile foto) {
@@ -52,6 +55,7 @@ public class AnasayfaServiceImpl implements AnasayfaService {
         }
     }
 
+    @Cacheable(value = "anasayfaList", unless = "#result == null || #result.isEmpty()")
     @Override
     @Transactional(readOnly = true)
     public List<AnasayfaResponseDTO> getAllAnasayfa() {
@@ -61,6 +65,7 @@ public class AnasayfaServiceImpl implements AnasayfaService {
                 .toList();
     }
 
+    @Cacheable(value = "anasayfaDetail", key = "#id", unless = "#result == null")
     @Override
     @Transactional(readOnly = true)
     public AnasayfaResponseDTO getAnasayfaById(Integer id) {
@@ -74,6 +79,7 @@ public class AnasayfaServiceImpl implements AnasayfaService {
                 });
     }
 
+    @CacheEvict(value = {"anasayfaList", "anasayfaDetail"}, allEntries = true)
     @Override
     @Transactional
     public AnasayfaResponseDTO updateAnasayfa(Integer id, String baslik, String aciklama, MultipartFile foto) {
@@ -111,6 +117,7 @@ public class AnasayfaServiceImpl implements AnasayfaService {
         return anasayfaMapper.toAnasayfaResponseDTO(updated);
     }
 
+    @CacheEvict(value = {"anasayfaList", "anasayfaDetail"}, allEntries = true)
     @Override
     @Transactional
     public void deleteAnasayfa(Integer id) {
