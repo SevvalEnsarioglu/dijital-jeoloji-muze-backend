@@ -12,11 +12,12 @@ public interface EserYorumService {
     
     EserYorumResponseDTO getEserYorumById(Integer id);
 
-    List<EserYorumResponseDTO> getYorumByEserId(Integer eserID);
 
     EserYorumResponseDTO updateEserYorum(Integer id, EserYorumRequestDTO request);
 
     EserYorumResponseDTO updateOkunduDurumu(Integer id, Boolean okundu);
 
     void deleteEserYorum(Integer id);
+
+    List<EserYorumResponseDTO> getYorumByEserId(Integer eserID, String sortBy, String sortDirection);
 }
