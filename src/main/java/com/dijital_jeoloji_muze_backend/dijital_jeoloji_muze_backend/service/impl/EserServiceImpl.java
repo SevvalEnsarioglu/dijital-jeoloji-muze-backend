@@ -2,6 +2,7 @@ package com.dijital_jeoloji_muze_backend.dijital_jeoloji_muze_backend.service.im
 
 import com.dijital_jeoloji_muze_backend.dijital_jeoloji_muze_backend.mapper.EserMapper;
 import com.dijital_jeoloji_muze_backend.dijital_jeoloji_muze_backend.model.dto.request.EserRequestDTO;
+import com.dijital_jeoloji_muze_backend.dijital_jeoloji_muze_backend.model.dto.response.EserListResponseDTO;
 import com.dijital_jeoloji_muze_backend.dijital_jeoloji_muze_backend.model.dto.response.EserResponseDTO;
 import com.dijital_jeoloji_muze_backend.dijital_jeoloji_muze_backend.model.entity.Eser;
 import com.dijital_jeoloji_muze_backend.dijital_jeoloji_muze_backend.repository.EserRepository;
@@ -95,7 +96,7 @@ public class EserServiceImpl implements EserService {
     @Cacheable(value = "eserList", unless = "#result == null || #result.isEmpty()")
     @Override
     @Transactional(readOnly = true)
-    public List<EserResponseDTO> getAllEser(String isim, String sortBy, String sortDirection) {
+    public List<EserListResponseDTO> getAllEser(String isim, String sortBy, String sortDirection) {
         Sort.Direction direction = sortDirection.equalsIgnoreCase("ASC")
                 ? Sort.Direction.ASC
                 : Sort.Direction.DESC;
@@ -111,7 +112,7 @@ public class EserServiceImpl implements EserService {
         }
 
         return eserList.stream()
-                .map(eserMapper::toEserResponseDTO)
+                .map(eserMapper::toEserListResponseDTO)
                 .toList();
     }
 
