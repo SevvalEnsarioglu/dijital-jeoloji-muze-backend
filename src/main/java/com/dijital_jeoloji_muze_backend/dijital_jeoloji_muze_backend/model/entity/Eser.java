@@ -55,4 +55,11 @@ public class Eser extends BaseEntity<Integer> {
 
     @Transient  // mongo db kaydetmeden, ilişkisel durumun runtime da kullanılması için
     private List<EserYorum> eserYorumlari = new ArrayList<>();
+
+    @Transient // db kaydedilmeden sadece ram içinnnnnn
+    private Long yorumSayisi;
+
+    public int getYorumSayisi() {
+        return this.eserYorumlari != null ? this.eserYorumlari.size() : 0;
+    }
 }
