@@ -26,8 +26,12 @@ public class EserYorumController {
 
     //ilgili esere ait yorumlar
     @GetMapping("/eser/{eserID}")
-    public ResponseEntity<List<EserYorumResponseDTO>> getYorumByEserId(@PathVariable Integer eserID) {
-        List<EserYorumResponseDTO> yorumList = eserYorumService.getYorumByEserId(eserID);
+    public ResponseEntity<List<EserYorumResponseDTO>> getYorumByEserId(
+            @PathVariable Integer eserID,
+            @RequestParam(defaultValue = "createdAt") String sortBy,
+            @RequestParam(defaultValue = "DESC") String sortDirection
+    ) {
+        List<EserYorumResponseDTO> yorumList = eserYorumService.getYorumByEserId(eserID, sortBy, sortDirection);
         return ResponseEntity.ok(yorumList);
     }
 

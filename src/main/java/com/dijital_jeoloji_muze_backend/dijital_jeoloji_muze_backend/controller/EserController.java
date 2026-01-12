@@ -16,8 +16,12 @@ public class EserController {
     private final EserService eserService;
 
     @GetMapping
-    public ResponseEntity<List<EserResponseDTO>> getAllEser() {
-        List<EserResponseDTO> eserList = eserService.getAllEser();
+    public ResponseEntity<List<EserResponseDTO>> getAllEser(
+            @RequestParam(required = false) String isim,
+            @RequestParam(defaultValue = "id") String sortBy,
+            @RequestParam(defaultValue = "DESC") String sortDirection
+    ) {
+        List<EserResponseDTO> eserList = eserService.getAllEser(isim, sortBy, sortDirection);
         return ResponseEntity.ok(eserList);
     }
 

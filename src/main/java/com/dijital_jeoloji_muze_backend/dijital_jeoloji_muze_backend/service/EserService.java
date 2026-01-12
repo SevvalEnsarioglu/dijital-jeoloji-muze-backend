@@ -9,11 +9,12 @@ public interface EserService {
 
     EserResponseDTO createEser(EserRequestDTO request);
 
-    List<EserResponseDTO> getAllEser();
 
     EserResponseDTO getEserById(Integer id);
 
     EserResponseDTO updateEser(Integer id, EserRequestDTO request);
 
     void deleteEser(Integer id);
+
+    List<EserResponseDTO> getAllEser(String isim, String sortBy, String sortDirection);
 }
