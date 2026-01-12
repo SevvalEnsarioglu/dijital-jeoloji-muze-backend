@@ -111,6 +111,11 @@ public class EserServiceImpl implements EserService {
             eserList = eserRepository.findAll(sort);
         }
 
+        eserList.forEach(eser -> {
+            List<EserYorum> yorumlar = eserYorumRepository.findByEserID(eser.getId(),  Sort.unsorted());
+            eser.setEserYorumlari(yorumlar);
+        });
+
         return eserList.stream()
                 .map(eserMapper::toEserListResponseDTO)
                 .toList();
