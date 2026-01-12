@@ -1,5 +1,6 @@
 package com.dijital_jeoloji_muze_backend.dijital_jeoloji_muze_backend.mapper;
 
+import com.dijital_jeoloji_muze_backend.dijital_jeoloji_muze_backend.model.dto.response.EserListResponseDTO;
 import com.dijital_jeoloji_muze_backend.dijital_jeoloji_muze_backend.model.dto.response.EserResponseDTO;
 import com.dijital_jeoloji_muze_backend.dijital_jeoloji_muze_backend.model.entity.Eser;
 import com.dijital_jeoloji_muze_backend.dijital_jeoloji_muze_backend.util.BinaryBase64Converter;
@@ -17,5 +18,8 @@ public abstract class EserMapper {
     @Mapping(target = "ses", expression = "java(converter.binaryToBase64(eser.getSes()))")
     @Mapping(target = "eserYorumlari", source = "eserYorumlari")
     public abstract EserResponseDTO toEserResponseDTO(Eser eser);
+
+    @Mapping(target = "foto", expression = "java(converter.binaryToBase64(eser.getFoto()))")
+    public abstract EserListResponseDTO toEserListResponseDTO(Eser eser);
 
 }

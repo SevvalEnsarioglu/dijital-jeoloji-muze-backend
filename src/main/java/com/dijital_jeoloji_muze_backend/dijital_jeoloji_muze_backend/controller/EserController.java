@@ -1,5 +1,6 @@
 package com.dijital_jeoloji_muze_backend.dijital_jeoloji_muze_backend.controller;
 
+import com.dijital_jeoloji_muze_backend.dijital_jeoloji_muze_backend.model.dto.response.EserListResponseDTO;
 import com.dijital_jeoloji_muze_backend.dijital_jeoloji_muze_backend.model.dto.response.EserResponseDTO;
 import com.dijital_jeoloji_muze_backend.dijital_jeoloji_muze_backend.service.EserService;
 import lombok.RequiredArgsConstructor;
@@ -16,12 +17,12 @@ public class EserController {
     private final EserService eserService;
 
     @GetMapping
-    public ResponseEntity<List<EserResponseDTO>> getAllEser(
+    public ResponseEntity<List<EserListResponseDTO>> getAllEser(
             @RequestParam(required = false) String isim,
             @RequestParam(defaultValue = "id") String sortBy,
             @RequestParam(defaultValue = "DESC") String sortDirection
     ) {
-        List<EserResponseDTO> eserList = eserService.getAllEser(isim, sortBy, sortDirection);
+        List<EserListResponseDTO> eserList = eserService.getAllEser(isim, sortBy, sortDirection);
         return ResponseEntity.ok(eserList);
     }
 
